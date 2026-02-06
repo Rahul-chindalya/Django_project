@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Franchise</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 20px;
+        }
+
+        label {
+            font-size: 12px;
+            color: #555;
+            display: block;
+            margin-top: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="file"] {
+            width: 100%;
+            padding: 6px;
+            margin: 4px 0 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 13px;
+        }
+
+        input[type="file"] {
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        button {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .form-group {
+            margin-bottom: 2px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Register Franchise</h2>
+
+        <form method="POST" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="name">Franchise Name</label>
+                <input type="text" id="name" name="name" maxlength="100" required value="{{franchise.name}}">
+            </div>
+
+            <div class="form-group">
+                <label for="short_name">Short Name</label>
+                <input type="text" id="short_name" name="short_name" maxlength="10" required value="{{franchise.short_name}}">
+            </div>
+
+            <div class="form-group">
+                <label for="founded_year">Founded Year</label>
+                <input type="number" id="founded_year" name="founded_year" required value="{{franchise.founded_year}}">
+            </div>
+
+            <div class="form-group">
+                <label for="no_of_trophies">Number of Trophies</label>
+                <input type="number" id="no_of_trophies" name="no_of_trophies" min="0" required value="{{franchise.no_of_trophies}}">
+            </div>
+
+            <div class="form-group">
+                <label for="logo">Logo </label>
+                <input type="file" id="logo" name="logo" accept="image/*">
+                {% if franchise.logo %}
+                    <img src="{{franchise.logo.url}}" alt="{{franchise.name}}"  height="40px">
+                {% else %}
+                    No LOGO
+                {% endif %}
+            </div> 
+
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" maxlength="100" required value="{{franchise.city}}">
+            </div>
+
+            <div class="form-group">
+                <label for="owner">Owner</label>
+                <input type="text" id="owner" name="owner" maxlength="100" required value="{{franchise.owner}}">
+            </div>
+
+            <div class="form-group">
+                <label for="coach">Coach</label>
+                <input type="text" id="coach" name="coach" maxlength="100" required value="{{franchise.coach}}">
+            </div>
+
+            <button type="submit">SAVE</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
+

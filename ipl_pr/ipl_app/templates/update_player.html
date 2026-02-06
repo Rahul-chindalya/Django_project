@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Player</title>
+    <style>
+        body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial; background:#f3f4f6; margin:0; padding:0; display:flex; align-items:center; justify-content:center; min-height:100vh;}
+        .form-card{background:#fff; padding:28px; border-radius:10px; box-shadow:0 8px 30px rgba(2,6,23,0.08); width:100%; max-width:580px;}
+        .form-card h2{margin:0 0 14px; font-size:1.25rem; color:#0f172a; text-align:center;}
+        form.player-form p{display:flex; flex-direction:column; margin:0 0 12px}
+        form.player-form label{font-size:0.9rem; font-weight:600; color:#334155; margin-bottom:6px}
+        form.player-form input[type="text"], form.player-form input[type="number"], form.player-form input[type="email"], form.player-form select, form.player-form textarea, form.player-form input[type="file"]{padding:10px 12px; border:1px solid #e6e7eb; border-radius:8px; background:#fff; font-size:0.95rem}
+        form.player-form input[type="file"]{padding:6px}
+        .errorlist{color:#b91c1c; margin:6px 0 0; padding:0; list-style:none}
+        .form-actions{margin-top:14px}
+        .form-actions input[type="submit"]{width:100%; padding:12px 14px; border-radius:8px; border:none; background:#2563eb; color:#fff; font-weight:700; cursor:pointer; transition:background .15s ease}
+        .form-actions input[type="submit"]:hover{background:#1e40af}
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #eff0f5 0%, #ebeaec 100%);
+            color: rgb(13, 11, 11);
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        @media (max-width:460px){ .form-card{padding:16px; margin:12px} }
+    </style>
+</head>
+<body>
+    <div class="form-card">
+        <a href="{% url 'ipl_app:players_list' %}" class="back-link" style="display: flex;
+                justify-content: end;">Players List</a>
+        <form method="post" enctype="multipart/form-data" class="player-form">
+            <h2>REGISTER PLAYER</h2>
+            {% csrf_token %}
+            <div class="form-group">
+                {% if player.photo %}
+                    <img src="{{ player.photo.url }}"
+                        alt="{{ player.name }}"
+                        height="80"
+                        style="border-radius:6px; margin-bottom:10px;">
+                {% else %}
+                    <p>No Photo</p>
+                {% endif %}
+            </div>
+            {{ form.as_p }}
+            <div class="form-actions">
+                <input type="submit" value="REGISTER">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
