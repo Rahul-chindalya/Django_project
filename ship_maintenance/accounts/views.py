@@ -35,8 +35,6 @@ def user_login(request):
     
     user = serializer.validated_data['user']
     
-    login(request,user)  # creates session
-    
     profile = Profile.objects.filter(user=user).first()
     return Response({
         "user_id" :  user.id,
@@ -61,7 +59,7 @@ def users_list(request):
     # check admin role
 
     profiles = Profile.objects.select_related('user').all()
-    result = {}
+    result = []
 
     for profile in profiles:
 
@@ -115,7 +113,10 @@ def user_update(request,id):
         profile.address = request.data.get('address', profile.address)
         profile.save()
 
-    return Response({"message": "User updated successfully"}, status=status.HTTP_200_OK)
+    return Response({"message": "User updated successfully","data": {
+        "id": user.id,"username": user.username,"email": user.email,"role": profile.role if profile else None,
+        "phone_no": profile.phone_no if profile else None, "address": profile.address if profile else None}
+        }, status=status.HTTP_200_OK)
 
 @api_view(['DELETE'])
 @permission_classes([IsSuperUser])
@@ -127,7 +128,14 @@ def user_delete(request,id):
     
     user.delete()
 
-    return Response({'message':'DELETED USER SUCCESSFULLY'},status=status.HTTP_200_OK)
+    return Response({'message':'DELETED USER SUCCESSFULLY','Data':{
+        "id":user.id,
+        "username":user.username,
+        "email":user.email,
+        "role":Profile.role if Profile else None,
+        "phone_no":Profile.phone_no if Profile else None,
+        "address":Profile.address if Profile else None,
+    }},status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def test_auth(request):
