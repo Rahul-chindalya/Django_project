@@ -24,16 +24,12 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         fields = ['username','email','password']
 
     def create(self,validated_data):
-        role = validated_data['role']
         user = User.objects.create_user(
             username = validated_data['username'],
             email = validated_data['email'],
             password = validated_data['password']
         )
-        Profile.objects.create(
-                user=user,
-                role=role,
-            )
+        Profile.objects.create(user=user,)
         return user
                                                                 
 
