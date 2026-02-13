@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts',
     'ships',
     'components',
+    'jobs',
 ]
 
 # REST_FRAMEWORK = {
