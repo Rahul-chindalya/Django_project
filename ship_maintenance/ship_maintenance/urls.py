@@ -25,4 +25,5 @@ urlpatterns = [
     path('ship/accounts/',include('accounts.urls')),
     path('ship/',include('ships.urls')),
     path('ship/',include('components.urls')),
+    path('ship/',include('jobs.urls')),
 ]
