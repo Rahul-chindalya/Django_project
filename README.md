@@ -20,3 +20,12 @@ Role-based permissions are applied where Admin (superuser) can perform CRUD oper
 Inspectors and Engineers have view-only access to the data.
 The project follows a clean structure with models, serializers, views, and URLs
 
+I divided the system into separate apps:
+
+   > accounts → User management & roles
+   > ships → Ship details
+   > components → Ship parts
+   > jobs → Maintenance tasks
+   > calendar_app → Date-based job tracking
+   > notifications → Alerts system
+   > dashboard → KPI & statistics
